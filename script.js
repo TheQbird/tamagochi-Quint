@@ -1,21 +1,21 @@
-// Zet of het nacht is (true/false)
-// 'let' betekent: maak een variabele aan die later kan veranderen
-let isNight = false;
-// Houdt bij of de pokemon zichtbaar is (voor toekomstig gebruik)
-let isVisible = true;
+// Zet of het nacht is (true of false)
+// 'let' betekent een variabele die later kan veranderen
+let isNight = false
+// Houdt bij of de pokemon zichtbaar is (voor later)
+let isVisible = true
 
-// Geluiden voor acties (gooien, terughalen, evolueren)
-// 'const' betekent: maak een variabele aan die niet meer verandert (constant)
-const throwSound = new Audio("Audio/pokeball-throw.mp3");
-throwSound.volume = 0.1;
-const returnSound = new Audio("Audio/pokeball-return.mp3");
-returnSound.volume = 0.1;
-const evolveSound = new Audio("Audio/pokemon-evolve.mp3"); 
-evolveSound.volume = 0.1;
+// Geluiden voor acties zoals gooien, terughalen en evolueren
+// 'const' betekent een variabele die niet verandert
+const throwSound = new Audio("Audio/pokeball-throw.mp3")
+throwSound.volume = 0.1
+const returnSound = new Audio("Audio/pokeball-return.mp3")
+returnSound.volume = 0.1
+const evolveSound = new Audio("Audio/pokemon-evolve.mp3")
+evolveSound.volume = 0.1
 
-// Een array is een lijst met meerdere dingen (hier: alle mogelijke Pokémon)
-// Elke Pokémon is een object met eigenschappen zoals naam en plaatje
-// De eerste ("-") is niks, dus geen Pokémon geselecteerd
+// Een array is een lijst met meerdere dingen hier alle Pokémon
+// Elke Pokémon heeft eigenschappen zoals naam en plaatje
+// De eerste is niks dus geen Pokémon geselecteerd
 const pokemons = [
   {
     name: "-",
@@ -41,154 +41,153 @@ const pokemons = [
     finalName: null,
     finalImg: null
   }
-];
+]
 
-// Houdt bij in welke evolutiestap je zit (0 = basis, 1 = eerste evolutie, 2 = tweede evolutie)
-let evolutionStage = 0; 
-// Welke Pokémon is nu geselecteerd (index in de array hierboven)
-let currentPokemonIndex = 0; 
-// Het huidige Pokémon object (naam, plaatje, etc)
-let currentPokemon = { ...pokemons[currentPokemonIndex] };
+// Houdt bij in welke evolutie je zit 0 is basis 1 is eerste evolutie en 2 is tweede evolutie / let betekent dat deze later kan veranderen
+let evolutionStage = 0
+// Welke Pokémon is nu geselecteerd (nummer in de lijst hierboven)
+let currentPokemonIndex = 0
+// Het huidige Pokémon object (naam, plaatje etc)
+let currentPokemon = { ...pokemons[currentPokemonIndex] }
 
-// Een functie ('function') is een stukje code dat je kunt hergebruiken
+// Een functie is een stuk code dat je vaker kan gebruiken
 // Wissel tussen dag en nacht modus
 function toggleDagNacht() {
-  // Zet dag/nacht om
-  isNight = !isNight;
-  // Pas de achtergrond aan
-  document.body.className = isNight ? "night" : "day";
-  // Pas de tekst van de knop aan
-  document.getElementById("toggle-day").innerText = isNight ? "Maak het dag" : "Maak het nacht";
-  console.log("Toggling day/night. Current isNight:", isNight);
+  // Zet dag of nacht aan of uit
+  isNight = !isNight
+  // Verander de achtergrond naar dag of nacht
+  document.body.className = isNight ? "night" : "day"
+  // Verander de tekst op de knop
+  document.getElementById("toggle-day").innerText = isNight ? "Maak het dag" : "Maak het nacht"
+  console.log("Toggling day/night Current isNight", isNight)
 }
 
-// Laat je Pokémon evolueren (als dat kan)
+// Laat je Pokémon evolueren als dat kan
 function evolvePokemon() {
-  // Als er geen Pokémon is gekozen, doe niks
+  // Als er geen Pokémon is gekozen doe niks
   if (currentPokemonIndex === 0) {
-    console.log("Geen Pokémon geselecteerd, kan niet evolven.");
-    return;
+    console.log("Geen Pokémon geselecteerd kan niet evolven")
+    return
   }
 
-  // Haal de juiste elementen op om het plaatje en de naam te veranderen
-  const pokemonImg = document.getElementById('pokemon-img');
-  const pokemonName = document.getElementById('pokemon-name'); 
-  const poke = pokemons[currentPokemonIndex];
+  // Haal elementen op om plaatje en naam te veranderen
+  const pokemonImg = document.getElementById('pokemon-img')
+  const pokemonName = document.getElementById('pokemon-name')
+  const poke = pokemons[currentPokemonIndex]
 
-  // Evolutie logica: als je nog niet geëvolueerd bent, ga naar de eerste evolutie
+  // Evolutie regels: als je nog niet geëvolueerd bent ga naar eerste evolutie
   if (evolutionStage === 0) {
-    currentPokemon.name = poke.evolvedName;
-    currentPokemon.img = poke.evolvedImg;
-    evolutionStage = 1;
-    evolveSound.play();
-    console.log("Evolved to:", currentPokemon.name, "Stage:", evolutionStage);
-  // Als je al één keer geëvolueerd bent en er is nog een evolutie, ga daar naartoe
+    currentPokemon.name = poke.evolvedName
+    currentPokemon.img = poke.evolvedImg
+    evolutionStage = 1
+    evolveSound.play()
+    console.log("Evolved to", currentPokemon.name, "Stage", evolutionStage)
+  // Als je een keer geëvolueerd bent en er is nog een evolutie ga daarheen
   } else if (evolutionStage === 1 && poke.finalName && poke.finalImg) {
-    currentPokemon.name = poke.finalName;
-    currentPokemon.img = poke.finalImg;
-    evolutionStage = 2;
-    evolveSound.play();
-    console.log("Evolved to:", currentPokemon.name, "Stage:", evolutionStage);
-  // Anders ga je terug naar de basisvorm
+    currentPokemon.name = poke.finalName
+    currentPokemon.img = poke.finalImg
+    evolutionStage = 2
+    evolveSound.play()
+    console.log("Evolved to", currentPokemon.name, "Stage", evolutionStage)
+  // Anders ga terug naar basis vorm
   } else {
-    currentPokemon.name = poke.name;
-    currentPokemon.img = poke.img;
-    evolutionStage = 0;
-    console.log("Reset to base form:", currentPokemon.name, "Stage:", evolutionStage);
+    currentPokemon.name = poke.name
+    currentPokemon.img = poke.img
+    evolutionStage = 0
+    console.log("Reset to base form", currentPokemon.name, "Stage", evolutionStage)
   }
-  // Update het plaatje en de naam op het scherm
-  pokemonImg.src = currentPokemon.img;
-  pokemonName.textContent = currentPokemon.name;
+  // Update het plaatje en naam op het scherm
+  pokemonImg.src = currentPokemon.img
+  pokemonName.textContent = currentPokemon.name
 }
 
-// Laat de dropdown zien zodat je een andere Pokémon kunt kiezen
+// Laat dropdown zien om andere Pokémon te kiezen
 function togglePokemon() {
-  const button = document.getElementById("toggle-pokemon");
-  const img = document.getElementById("pokemon-img");
-  const select = document.getElementById("pokemon-dropdown");
-  const evolveBtn = document.getElementById("evolve-btn");
+  const button = document.getElementById("toggle-pokemon")
+  const img = document.getElementById("pokemon-img")
+  const select = document.getElementById("pokemon-dropdown")
+  const evolveBtn = document.getElementById("evolve-btn")
 
-  // Speel het geluid van terughalen af
-  returnSound.play();
+  // Speelt geluid af van terughalen
+  returnSound.play()
 
-  // Zet de dropdown op "niks" en update de state
-  select.value = "0";
-  currentPokemonIndex = 0;
-  evolutionStage = 0;
-  currentPokemon = { ...pokemons[0] };
-  updatePokemonDisplay();
-  // Verberg de evolve knop en het plaatje
-  if (evolveBtn) evolveBtn.style.display = "none";
-  img.style.display = "none";
+  // Zet dropdown op niks en update state
+  select.value = "0"
+  currentPokemonIndex = 0
+  evolutionStage = 0
+  currentPokemon = { ...pokemons[0] }
+  updatePokemonDisplay()
+  // Verberg evolve knop en plaatje
+  if (evolveBtn) evolveBtn.style.display = "none"
+  img.style.display = "none"
 
-  // Toon de dropdown en verberg de "verander" knop
-  select.style.display = "";
-  button.style.display = "none";
+  // Toon dropdown en verberg verander knop
+  select.style.display = ""
+  button.style.display = "none"
 }
 
-// Deze code wordt uitgevoerd als de pagina geladen is
+// Dit wordt uitgevoerd als de pagina klaar is en voert de functies uit
 document.addEventListener("DOMContentLoaded", function() {
-  const select = document.getElementById("pokemon-dropdown");
-  const button = document.getElementById("toggle-pokemon");
-  const img = document.getElementById("pokemon-img");
-  const evolveBtn = document.getElementById("evolve-btn");
-  // Start direct in "niks" state: geen Pokémon zichtbaar, dropdown open
-  select.value = "0";
-  currentPokemonIndex = 0;
-  evolutionStage = 0;
-  currentPokemon = { ...pokemons[0] };
-  updatePokemonDisplay();
-  if (evolveBtn) evolveBtn.style.display = "none";
-  img.style.display = "none";
-  select.style.display = "";
-  button.style.display = "none";
+  const select = document.getElementById("pokemon-dropdown")
+  const button = document.getElementById("toggle-pokemon")
+  const img = document.getElementById("pokemon-img")
+  const evolveBtn = document.getElementById("evolve-btn")
+  // Begin met niks gekozen en dropdown open
+  select.value = "0"
+  currentPokemonIndex = 0
+  evolutionStage = 0
+  currentPokemon = { ...pokemons[0] }
+  updatePokemonDisplay()
+  if (evolveBtn) evolveBtn.style.display = "none"
+  img.style.display = "none"
+  select.style.display = ""
+  button.style.display = "none"
 
   if (select) {
-    // Als je een andere Pokémon kiest in de dropdown
+    // Als je een andere Pokémon kiest in dropdown
     select.onchange = function () {
-      const idx = parseInt(this.value, 10);
-      currentPokemonIndex = idx;
-      evolutionStage = 0;
-      currentPokemon = { ...pokemons[idx] };
-      updatePokemonDisplay();
-      // Speel het geluid van gooien af
-      throwSound.play();
-      // Verberg de dropdown en toon de "verander" knop weer
-      select.style.display = "none";
-      button.style.display = "";
-      // Laat de evolve knop alleen zien als er een Pokémon is gekozen
-      if (evolveBtn) evolveBtn.style.display = (idx === 0) ? "none" : "";
-      // Laat het plaatje alleen zien als er een Pokémon is gekozen
-      img.style.display = (idx === 0) ? "none" : "block";
-    };
-    // Laat de evolve knop alleen zien als er een Pokémon is gekozen
-    const evolveBtn = document.getElementById("evolve-btn");
-    if (evolveBtn) evolveBtn.style.display = (currentPokemonIndex === 0) ? "none" : "";
+      const idx = parseInt(this.value, 10)
+      currentPokemonIndex = idx
+      evolutionStage = 0
+      currentPokemon = { ...pokemons[idx] }
+      updatePokemonDisplay()
+      // Speel gooigeluid
+      throwSound.play()
+      // Verberg dropdown en toon verander knop
+      select.style.display = "none"
+      button.style.display = ""
+      // Laat evolve knop alleen zien als er een Pokémon is gekozen
+      if (evolveBtn) evolveBtn.style.display = (idx === 0) ? "none" : ""
+      // Laat plaatje zien alleen als Pokémon gekozen is
+      img.style.display = (idx === 0) ? "none" : "block"
+    }
+    // Laat evolve knop alleen zien als Pokémon is gekozen
+    if (evolveBtn) evolveBtn.style.display = (currentPokemonIndex === 0) ? "none" : ""
   }
-});
+})
 
-// (Optioneel) Functie om direct een Pokémon te kiezen via index
+// (Optioneel) Kies direct een Pokémon via index
 function selectPokemon(index) {
-  console.log("Selecting Pokemon at index:", index);
-  currentPokemonIndex = index;
-  evolutionStage = 0;
-  currentPokemon = { ...pokemons[index] };
-  updatePokemonDisplay();
+  console.log("Selecting Pokemon at index", index)
+  currentPokemonIndex = index
+  evolutionStage = 0
+  currentPokemon = { ...pokemons[index] }
+  updatePokemonDisplay()
 }
 
-// Update het plaatje en de naam van de huidige Pokémon op het scherm
+// Update plaatje en naam van huidige Pokémon op scherm
 function updatePokemonDisplay() {
-  const pokemonImg = document.getElementById('pokemon-img');
-  const pokemonName = document.getElementById('pokemon-name');
-  // Als er geen Pokémon is gekozen, verberg alles
+  const pokemonImg = document.getElementById('pokemon-img')
+  const pokemonName = document.getElementById('pokemon-name')
+  // Als geen Pokémon gekozen verberg alles
   if (currentPokemonIndex === 0) {
-    pokemonImg.style.display = "none";
-    pokemonName.textContent = "";
+    pokemonImg.style.display = "none"
+    pokemonName.textContent = ""
   } else {
-    // Anders laat het plaatje en de naam zien
-    pokemonImg.src = currentPokemon.img;
-    pokemonImg.style.display = "block";
-    pokemonName.textContent = currentPokemon.name;
+    // Anders laat plaatje en naam zien
+    pokemonImg.src = currentPokemon.img
+    pokemonImg.style.display = "block"
+    pokemonName.textContent = currentPokemon.name
   }
-  console.log("Updating Pokemon Display to:", currentPokemon.name, currentPokemon.img);
+  console.log("Updating Pokemon Display to", currentPokemon.name, currentPokemon.img)
 }
