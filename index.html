@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Pokémon Tamagotchi</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body class="day">
+  <h1>Mijn Pokémon: Tamagotchi <span id="pokemon-name">Ghastly</span></h1>
+
+  <div id="pokemon-container">
+    <img id="pokemon-img" src="https://img.pokemondb.net/sprites/black-white/normal/gastly.png" alt="Pokemon">
+  </div>
+
+  <div class="controls">
+    <button id="toggle-day" onclick="toggleDagNacht()">Maak het nacht</button>
+    <button id="evolve-btn" onclick="evolvePokemon()">Evolve</button>
+    <button id="toggle-pokemon" onclick="togglePokemon()">verander</button>
+    <select id="pokemon-dropdown" style="display:none; margin-left:10px;">
+      <option value="0">-</option>
+      <option value="1">Gastly</option>
+      <option value="2">Magikarp</option>
+    </select>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

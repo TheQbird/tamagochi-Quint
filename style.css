@@ -1,0 +1,54 @@
+body {
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  transition: background-image 0.5s;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+  background-image: url(Fotos/Pokemon_at_day.jpg);
+}
+
+body.night {
+  background-image: url(Fotos/Pokemon_at_night.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+#pokemon-container {
+  margin: 40px 0;
+}
+
+#pokemon-img {
+  width: 150px;
+  height: auto;
+  image-rendering: pixelated;
+  display: block;
+  margin: 0 auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  background: #ffcb05;
+  color: #2a75bb;
+  font-weight: bold;
+  box-shadow: 2px 2px #333;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: #f5b700;
+  transform: scale(1.05);
+}
