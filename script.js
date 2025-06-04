@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
   button.style.display = "none"
 
   if (select) {
-    // Als je een andere Pokémon kiest in dropdown
+    // Als je een andere Pokémon kiest in dropdown / const idx maakt een vaste variabele aan die een index (positie) opslaat
     select.onchange = function () {
       const idx = parseInt(this.value, 10)
       currentPokemonIndex = idx
