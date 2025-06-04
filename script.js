@@ -126,7 +126,7 @@ function togglePokemon() {
   button.style.display = "none"
 }
 
-// Dit wordt uitgevoerd als de pagina klaar is en voert de functies uit
+// Dit wordt uitgevoerd als de pagina klaar is en voert de functies uit / "DOM": Document Object Model is een brug tusse JavaScript-code en de HTML-pagina die in de browser wordt latenzien.
 document.addEventListener("DOMContentLoaded", function() {
   const select = document.getElementById("pokemon-dropdown")
   const button = document.getElementById("toggle-pokemon")
